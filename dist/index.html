@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gamil Föppel Advogados Associados — atuação estratégica em Direito Penal Econômico e Empresarial.">
+  <title>Gamil Föppel Advogados Associados | Estratégia e excelência</title>
+  <style>
+    :root {
+      --ink: #111827;
+      --navy: #0d162a;
+      --navy-deep: #080e1b;
+      --wine: #8d2026;
+      --gold: #d3a958;
+      --gold-pale: #f1ddae;
+      --paper: #f6f3ed;
+      --line: rgba(15, 22, 38, .15);
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--paper); }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); overflow-x: hidden; }
+    body.is-modal-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { font: inherit; }
+
+    .skip-link {
+      position: fixed; z-index: 1000; left: 1rem; top: -4rem; padding: .75rem 1rem; border-radius: .5rem;
+      background: #fff; color: var(--navy); transition: top .2s ease;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    .site-header {
+      position: fixed; z-index: 50; top: 0; left: 0; right: 0; display: flex; align-items: center;
+      justify-content: space-between; min-height: 86px; padding: 1.2rem clamp(1.1rem, 5vw, 5.5rem);
+      border-bottom: 1px solid rgba(255,255,255,.16); color: #fff; opacity: 0; pointer-events: none; transform: translateY(-12px);
+      transition: background .3s ease, min-height .3s ease, opacity .25s ease, transform .25s ease;
+    }
+    .site-header.is-revealed { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .site-header.is-solid { min-height: 68px; background: rgba(8, 14, 27, .94); backdrop-filter: blur(12px); }
+    .brand { width: min(225px, 40vw); }
+    .brand img { width: 100%; height: auto; }
+    .nav-links { display: flex; gap: clamp(1rem, 2.1vw, 2.7rem); align-items: center; }
+    .nav-links a, .header-contact {
+      font-size: .69rem; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap;
+    }
+    .nav-links a { opacity: .82; transition: color .18s ease, opacity .18s ease; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--gold-pale); opacity: 1; }
+    .header-contact { border: 1px solid rgba(255,255,255,.42); padding: .8rem 1rem; border-radius: 999px; }
+    .menu-toggle { display: none; padding: .55rem; color: #fff; background: transparent; border: 0; cursor: pointer; }
+    .menu-toggle span { display: block; width: 26px; height: 2px; margin: 5px 0; background: currentColor; }
+
+    .hero { position: relative; height: 330vh; background: var(--navy-deep); }
+    .hero-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+    .hero-stage { position: absolute; z-index: 0; inset: 0; transform: translate3d(9.3vw, 25vh, 0) scale(1.55); transform-origin: 50% 50%; will-change: transform; }
+    .hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .hero-photo-person { opacity: 0; will-change: opacity; }
+    .hero-vignette { position: absolute; inset: 0; opacity: 0; background:
+      linear-gradient(90deg, rgba(4, 8, 15, .92) 0%, rgba(4, 8, 15, .68) 34%, rgba(4,8,15,.18) 68%, rgba(4,8,15,.36) 100%),
+      linear-gradient(0deg, rgba(4,8,15,.7), transparent 42%, rgba(4,8,15,.18));
+      z-index: 1; will-change: opacity;
+    }
+    .hero-grid { position: absolute; z-index: 2; inset: 0; opacity: 0; background-image: linear-gradient(rgba(255,255,255,.11) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.11) 1px, transparent 1px); background-size: 20vw 20vw; mask-image: linear-gradient(to bottom, #000, transparent 75%); will-change: opacity; pointer-events: none; }
+    .hero-copy { position: absolute; z-index: 3; left: clamp(1.2rem, 8vw, 9rem); top: 50%; width: min(680px, 78vw); color: #fff; opacity: 0; transform: translateY(-42%); will-change: opacity, transform; }
+    .eyebrow { margin: 0 0 1.4rem; color: var(--gold-pale); font-size: .68rem; font-weight: 800; letter-spacing: .16em; line-height: 1.45; text-transform: uppercase; }
+    .hero h1 { max-width: 9ch; margin: 0; font: 500 clamp(3.2rem, 6.2vw, 7.4rem)/.91 var(--serif); letter-spacing: -.055em; }
+    .hero h1 em { color: var(--gold-pale); font-style: italic; }
+    .hero-lead { max-width: 47ch; margin: 1.6rem 0 2rem; color: rgba(255,255,255,.84); font-size: clamp(.96rem, 1.23vw, 1.12rem); line-height: 1.6; }
+    .button-primary, .button-dark {
+      display: inline-flex; align-items: center; justify-content: center; gap: .8rem; min-height: 48px; padding: .8rem 1.25rem;
+      font-size: .71rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; transition: transform .2s ease, background .2s ease;
+    }
+    .button-primary { background: var(--gold); color: #151824; }
+    .button-primary:hover, .button-primary:focus-visible { background: #e7c574; transform: translateY(-2px); }
+    .hero-scroll { position: absolute; z-index: 3; bottom: 2rem; left: clamp(1.2rem, 8vw, 9rem); display: flex; align-items: center; gap: .8rem; color: rgba(255,255,255,.7); font-size: .63rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; opacity: 0; transform: translateY(10px); will-change: opacity, transform; }
+    .scroll-line { width: 48px; height: 1px; background: var(--gold); }
+
+    .section { padding: clamp(4.8rem, 10vw, 10rem) clamp(1.2rem, 8vw, 9rem); }
+    .intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .8fr); gap: clamp(2.8rem, 8vw, 10rem); align-items: end; }
+    .section-label { margin: 0 0 1.15rem; color: var(--wine); font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .display-title { max-width: 13ch; margin: 0; font: 500 clamp(2.7rem, 5vw, 5.55rem)/.95 var(--serif); letter-spacing: -.05em; }
+    .display-title em { color: var(--wine); font-style: italic; }
+    .intro-copy { padding-bottom: .65rem; }
+    .intro-copy p { max-width: 47ch; margin: 0; color: #4e5360; font-size: 1.03rem; line-height: 1.74; }
+    .intro-copy p + p { margin-top: 1rem; }
+    .intro-more { margin-top: 1.65rem; }
+
+    @media (min-width: 581px) {
+      .hero-scroll { display: none; }
+      .intro { align-items: start; padding-bottom: clamp(2.5rem, 3vw, 3.5rem); }
+      .intro-copy { padding: 2rem 0 0; }
+      .section.services { padding-top: clamp(4.5rem, 6vw, 7rem); padding-bottom: 0; background: #ede8df; border-top: 1px solid var(--line); }
+      .section.services .services-head { margin-bottom: clamp(2.7rem, 4vw, 4.25rem); }
+      .section.services .services-head h2 { max-width: 14ch; font-size: clamp(2.7rem, 4.1vw, 4.7rem); }
+      .section.services + .founder { margin-top: clamp(2rem, 3vw, 3.5rem); border-top: 1px solid rgba(155, 28, 40, .5); }
+    }
+
+    .services { padding-top: 1rem; scroll-margin-top: 7rem; }
+    .services-head { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 2.2rem; }
+    .services-head h2 { max-width: 12ch; margin: 0; font: 500 clamp(2.35rem, 4.5vw, 4.8rem)/.96 var(--serif); letter-spacing: -.05em; }
+    .service-note { max-width: 35ch; margin: 0; color: #5f6570; font-size: .95rem; line-height: 1.6; }
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .service-card { width: 100%; min-height: 220px; padding: 1.55rem; border: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); color: inherit; background: rgba(255,255,255,.28); text-align: left; cursor: pointer; transition: background .25s ease, color .25s ease; }
+    .service-card:hover { background: var(--navy); color: #fff; }
+    .service-number { color: var(--gold); font-size: .68rem; font-weight: 800; letter-spacing: .11em; }
+    .service-card h3 { max-width: 13ch; margin: 3.25rem 0 .75rem; font: 500 1.55rem/1.08 var(--serif); }
+    .service-card p { margin: 0; font-size: .88rem; line-height: 1.55; opacity: .74; }
+
+    .founder { height: 175vh; background: var(--navy-deep); color: #fff; }
+    .founder-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+    .founder-office { position: absolute; inset: -5%; width: 110%; height: 110%; object-fit: cover; object-position: 50% 53%; opacity: .38; transform: scale(1.06); will-change: transform; }
+    .founder-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,14,27,.92), rgba(8,14,27,.68) 44%, rgba(8,14,27,.38)), linear-gradient(0deg, rgba(8,14,27,.82), transparent 58%); }
+    .founder-badge { position: absolute; z-index: 1; top: 17%; left: clamp(1.2rem, 8vw, 9rem); color: var(--gold-pale); font-size: .68rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .portrait-wrap { position: absolute; z-index: 1; left: 7.2%; bottom: -5%; width: min(36vw, 480px); transform-origin: bottom left; will-change: transform, opacity; }
+    .portrait-wrap::after { position: absolute; right: -8%; bottom: 0; width: 80%; height: 13%; content: ""; background: radial-gradient(ellipse, rgba(0,0,0,.48), transparent 68%); filter: blur(10px); }
+    .portrait-wrap img { position: relative; z-index: 1; width: 100%; filter: contrast(1.07) grayscale(1); }
+    .founder-copy { position: absolute; z-index: 2; top: 50%; right: clamp(1.2rem, 10vw, 12rem); width: min(480px, 39vw); transform: translateY(-44%); will-change: opacity, transform; }
+    .founder-copy h2 { margin: 0; font: 500 clamp(2.75rem, 5vw, 5.7rem)/.91 var(--serif); letter-spacing: -.06em; }
+    .founder-copy h2 em { color: var(--gold-pale); font-style: italic; }
+    .founder-copy p { color: rgba(255,255,255,.75); font-size: 1rem; line-height: 1.68; }
+    .founder-meta { display: flex; gap: .8rem; align-items: center; margin: 1.6rem 0 0; color: var(--gold-pale); font-size: .71rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+    .founder-meta::before { width: 32px; height: 1px; content: ""; background: var(--gold); }
+    .founder-more { margin-top: 1.35rem; }
+
+    .team-section { background: #ede8df; }
+    .team-intro { display: grid; grid-template-columns: minmax(0, .9fr) minmax(280px, .75fr); gap: clamp(2.5rem, 8vw, 9rem); align-items: end; margin-bottom: 2.7rem; }
+    .team-intro h2 { max-width: 11ch; margin: 0; font: 500 clamp(2.65rem, 5vw, 5.45rem)/.94 var(--serif); letter-spacing: -.055em; }
+    .team-intro h2 em { color: var(--wine); font-style: italic; }
+    .team-intro p:last-child { max-width: 42ch; margin: 0; color: #535861; line-height: 1.7; }
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .team-card { min-height: 250px; padding: 1.5rem; border: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); color: var(--navy); background: rgba(255,255,255,.34); text-align: left; cursor: pointer; transition: background .25s ease, color .25s ease, transform .25s ease; }
+    .team-card:hover, .team-card:focus-visible { color: #fff; background: var(--wine); outline: 0; }
+    .team-role { display: block; color: var(--wine); font-size: .67rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; transition: color .25s ease; }
+    .team-card:hover .team-role, .team-card:focus-visible .team-role { color: var(--gold-pale); }
+    .team-card h3 { max-width: 10ch; margin: 3.35rem 0 .75rem; font: 500 clamp(1.75rem, 2.4vw, 2.55rem)/.98 var(--serif); letter-spacing: -.04em; }
+    .team-card p { max-width: 27ch; margin: 0; font-size: .88rem; line-height: 1.58; opacity: .74; }
+
+    .recognition { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(290px, .85fr); gap: clamp(3rem, 9vw, 11rem); align-items: center; background: #e8dfd1; }
+    .recognition h2 { max-width: 10ch; margin: 0; font: 500 clamp(2.7rem, 5.2vw, 5.7rem)/.91 var(--serif); letter-spacing: -.06em; }
+    .recognition p { max-width: 44ch; color: #4e4840; line-height: 1.7; }
+    .award-row { display: grid; grid-template-columns: 1.15fr .8fr .8fr; gap: 1rem; align-items: center; }
+    .award-card { display: flex; min-height: 170px; align-items: center; justify-content: center; padding: 1.3rem; background: #f8f5f0; box-shadow: 0 20px 45px rgba(49,35,18,.12); }
+    .award-card img { max-height: 140px; object-fit: contain; }
+    .award-card:first-child img { max-height: 185px; }
+    .recognition.awards-ready .award-card { --award-enter: translate3d(0, 2.25rem, 0) scale(.94); opacity: 0; transform: var(--award-enter); }
+    .recognition.awards-ready .award-card:nth-child(1) { --award-enter: translate3d(-3.25rem, 1.8rem, 0) rotate(-3deg) scale(.94); }
+    .recognition.awards-ready .award-card:nth-child(2) { --award-enter: translate3d(0, 2.5rem, 0) scale(.91); }
+    .recognition.awards-ready .award-card:nth-child(3) { --award-enter: translate3d(3.25rem, 1.8rem, 0) rotate(3deg) scale(.94); }
+    .recognition.awards-ready.awards-visible .award-card { animation: award-reveal .82s cubic-bezier(.22,.82,.28,1) forwards; }
+    .recognition.awards-ready.awards-visible .award-card:nth-child(2) { animation-delay: .16s; }
+    .recognition.awards-ready.awards-visible .award-card:nth-child(3) { animation-delay: .32s; }
+    @keyframes award-reveal {
+      0% { opacity: 0; transform: var(--award-enter); }
+      68% { opacity: 1; }
+      100% { opacity: 1; transform: translate3d(0, 0, 0) rotate(0) scale(1); }
+    }
+
+    .insight-section { background: var(--navy); color: #fff; }
+    .insight-head { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 2.5rem; }
+    .insight-head h2 { margin: 0; font: 500 clamp(2.65rem, 5vw, 5.5rem)/.92 var(--serif); letter-spacing: -.05em; }
+    .text-link { border: 0; border-bottom: 1px solid var(--gold); padding: 0 0 .35rem; color: var(--gold-pale); background: transparent; font-family: inherit; font-size: .72rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; white-space: nowrap; cursor: pointer; }
+    .text-link-dark { color: var(--wine); }
+    .post-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,.18); }
+    .post-card { position: relative; width: 100%; min-height: 0; aspect-ratio: 1; padding: 0; overflow: hidden; border: 0; color: inherit; background: #1b273e; text-align: left; cursor: pointer; }
+    .post-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .84; transition: transform .5s ease, opacity .4s ease; }
+    .post-card:hover img { transform: scale(1.04); opacity: .64; }
+    .post-card::after { position: absolute; inset: 0; content: ""; background: linear-gradient(0deg, rgba(5,10,21,.92) 4%, rgba(5,10,21,.12) 65%); }
+    .post-content { position: absolute; z-index: 1; inset: auto 1.35rem 1.45rem; }
+    .post-date { display: block; margin-bottom: .75rem; color: var(--gold-pale); font-size: .66rem; font-weight: 800; letter-spacing: .1em; }
+    .post-card h3 { margin: 0; font: 500 clamp(1.25rem, 1.9vw, 1.7rem)/1.05 var(--serif); }
+
+    .contact { position: relative; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(270px, .75fr); gap: clamp(3rem, 9vw, 12rem); overflow: hidden; background: var(--wine); color: #fff; }
+    .contact::after { position: absolute; top: -20vw; right: -14vw; width: 56vw; height: 56vw; content: ""; border: 1px solid rgba(236,204,141,.55); border-radius: 50%; box-shadow: 0 0 0 5vw rgba(236,204,141,.07), 0 0 0 10vw rgba(236,204,141,.05); }
+    .contact > * { position: relative; z-index: 1; }
+    .contact h2 { max-width: 11ch; margin: 0; font: 500 clamp(3rem, 5.5vw, 6rem)/.9 var(--serif); letter-spacing: -.06em; }
+    .contact h2 em { color: var(--gold-pale); font-style: italic; }
+    .contact-lead { max-width: 48ch; margin: 1.4rem 0 2rem; color: rgba(255,255,255,.8); line-height: 1.65; }
+    .contact .button-primary { background: var(--gold-pale); }
+    .contact-card { align-self: end; padding: 1.75rem; border: 1px solid rgba(255,255,255,.28); background: rgba(54,6,10,.22); }
+    .contact-card > p { margin: 0 0 .8rem; color: var(--gold-pale); font-size: .66rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .contact-card strong { display: block; font: 500 1.5rem/1.2 var(--serif); }
+    .contact-card address { margin: 1rem 0 1.4rem; color: rgba(255,255,255,.78); font-size: .92rem; font-style: normal; line-height: 1.55; }
+    .phone-link { color: #fff; font-size: 1.18rem; font-weight: 750; }
+
+    .site-footer { padding: 2.1rem clamp(1.2rem, 8vw, 9rem); background: #750e17; color: rgba(255,255,255,.72); }
+    .footer-top { display: flex; align-items: end; justify-content: space-between; gap: 2rem; padding-bottom: 1.8rem; border-bottom: 1px solid rgba(255,255,255,.23); }
+    .footer-logo { width: min(260px, 57vw); }
+    .footer-logo img { width: 100%; }
+    .socials { display: flex; gap: .65rem; }
+    .socials a { display: grid; width: 40px; height: 40px; place-items: center; border: 1px solid rgba(255,255,255,.35); border-radius: 50%; font-size: .68rem; font-weight: 850; letter-spacing: .04em; }
+    .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.25rem 3rem; padding-top: 1.7rem; font-size: .72rem; line-height: 1.6; }
+    .office-list { display: flex; flex-wrap: wrap; gap: .3rem .9rem; max-width: 650px; }
+    .office-list span + span::before { margin-right: .9rem; color: var(--gold-pale); content: "•"; }
+
+    .detail-modal { width: min(760px, calc(100vw - 2.4rem)); max-height: min(86vh, 850px); padding: 0; border: 0; border-radius: 2px; color: var(--ink); background: var(--paper); box-shadow: 0 28px 80px rgba(0,0,0,.42); }
+    .detail-modal::backdrop { background: rgba(4, 8, 15, .76); backdrop-filter: blur(6px); }
+    .modal-shell { position: relative; max-height: min(86vh, 850px); overflow-y: auto; padding: clamp(2rem, 5vw, 4.4rem); }
+    .modal-close { position: absolute; top: 1rem; right: 1rem; display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid rgba(13,22,42,.22); border-radius: 50%; color: var(--navy); background: rgba(255,255,255,.72); font-size: 1.4rem; line-height: 1; cursor: pointer; }
+    .modal-label { margin: 0 3.5rem 1rem 0; color: var(--wine); font-size: .67rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .modal-title { max-width: 14ch; margin: 0 0 2rem; color: var(--navy); font: 500 clamp(2.5rem, 6vw, 4.7rem)/.93 var(--serif); letter-spacing: -.055em; }
+    .modal-content { color: #3e4550; font-size: 1rem; line-height: 1.74; }
+    .modal-content p { margin: 0; }
+    .modal-content p + p { margin-top: 1.05rem; }
+    .modal-content h3 { margin: 2rem 0 .65rem; color: var(--navy); font: 500 1.55rem/1.1 var(--serif); }
+    .modal-content ul { display: grid; gap: .55rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+    .modal-content li { position: relative; padding-left: 1.25rem; }
+    .modal-content li::before { position: absolute; left: 0; top: .76em; width: .42rem; height: .42rem; content: ""; border-radius: 50%; background: var(--gold); }
+    .modal-content a { color: var(--wine); font-weight: 750; text-decoration: underline; text-underline-offset: .18em; }
+    .modal-quote { margin: 0 0 2rem; padding: 1.35rem 0 1.35rem 1.3rem; border-left: 2px solid var(--gold); color: var(--navy); font: italic 500 clamp(1.35rem, 2.5vw, 1.8rem)/1.36 var(--serif); }
+    .modal-quote cite { display: block; margin-top: .8rem; color: var(--wine); font: 800 .66rem/1.4 var(--sans); letter-spacing: .1em; text-transform: uppercase; }
+    .modal-index { display: grid; gap: .7rem; margin-top: 1.5rem; }
+    .modal-index button { display: flex; width: 100%; justify-content: space-between; gap: 1rem; padding: 1rem 0; border: 0; border-bottom: 1px solid var(--line); color: var(--navy); background: transparent; text-align: left; font: 500 1.16rem/1.25 var(--serif); cursor: pointer; }
+    .modal-index button span { color: var(--wine); font: 800 .63rem/1.4 var(--sans); letter-spacing: .09em; text-transform: uppercase; }
+
+    @media (max-width: 920px) {
+      .site-header { min-height: 68px; padding-inline: 1.2rem; }
+      .nav-links, .header-contact { display: none; }
+      .menu-toggle { display: block; }
+      .site-header.is-menu-open { background: var(--navy-deep); }
+      .site-header.is-menu-open .nav-links { position: absolute; top: 68px; left: 0; right: 0; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: .35rem 1.2rem 1.15rem; background: var(--navy-deep); border-top: 1px solid rgba(255,255,255,.12); }
+      .site-header.is-menu-open .nav-links a { padding: .95rem 0; border-bottom: 1px solid rgba(255,255,255,.1); }
+      .intro, .recognition, .contact, .team-intro { grid-template-columns: 1fr; }
+      .service-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .post-grid { grid-template-columns: repeat(2, 1fr); }
+      .founder { height: 152vh; }
+      .portrait-wrap { left: 50%; bottom: 3%; width: min(64vw, 360px); transform: translateX(-50%); }
+      .founder-copy { top: 19%; right: 1.2rem; left: 1.2rem; width: auto; transform: none; }
+      .founder-office { opacity: .28; object-position: 66% 50%; }
+      .founder-overlay { background: linear-gradient(0deg, rgba(8,14,27,.92), rgba(8,14,27,.56) 65%, rgba(8,14,27,.78)); }
+      .founder-badge { top: 13%; left: 1.2rem; }
+      .award-row { max-width: 540px; }
+      .contact-card { max-width: 460px; }
+    }
+
+    @media (max-width: 580px) {
+      .hero { height: 280vh; }
+      .hero-stage { inset: 0; height: auto; overflow: hidden; transform: scale(1); transform-origin: center; }
+      .hero-photo { object-position: center; transform: translate3d(24px, 0, 0) scale(1.75); transform-origin: 50% 0%; will-change: transform; }
+      .hero-photo-empty { object-position: center; }
+      .hero-photo-person { object-position: center; }
+      .hero-vignette { background: linear-gradient(0deg, rgba(4,8,15,.86), rgba(4,8,15,.2) 70%), linear-gradient(90deg, rgba(4,8,15,.77), rgba(4,8,15,.06)); }
+      .hero-copy { top: auto; bottom: 12vh; width: calc(100% - 2.4rem); transform: none; }
+      .hero h1 { max-width: 9.5ch; font-size: clamp(3.4rem, 16vw, 5.1rem); }
+      .hero-lead { margin: 1.25rem 0 1.45rem; font-size: .95rem; }
+      .hero-scroll { display: none; }
+      .section { padding: 4.5rem 1.2rem; }
+      .intro { gap: 2.3rem; }
+      .display-title { max-width: 10ch; font-size: clamp(3rem, 14vw, 4.7rem); }
+      .services-head, .insight-head { display: block; }
+      .service-note { margin-top: 1.2rem; }
+      .service-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
+      .service-card { min-height: 176px; }
+      .service-card h3 { margin-top: 2rem; }
+      .team-intro { margin-bottom: 2rem; }
+      .team-card { min-height: 190px; }
+      .team-card h3 { margin-top: 2rem; }
+      .founder { height: 148vh; }
+      .founder-copy { top: 18%; }
+      .founder-copy h2 { font-size: clamp(3rem, 15vw, 4.5rem); }
+      .founder-copy p { max-width: 32ch; font-size: .92rem; }
+      .portrait-wrap { bottom: -2%; width: min(77vw, 360px); }
+      .recognition { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+      .award-row { gap: .55rem; }
+      .award-card { min-height: 125px; padding: .55rem; }
+      .award-card img, .award-card:first-child img { max-height: 105px; }
+      .insight-head .text-link { display: inline-block; margin-top: 1.5rem; }
+      .post-grid { grid-template-columns: 1fr; }
+      .post-card { min-height: 0; aspect-ratio: 1; }
+      .contact h2 { font-size: clamp(3rem, 15vw, 4.5rem); }
+      .footer-top { display: block; }
+      .socials { margin-top: 1.35rem; }
+      .detail-modal { width: calc(100vw - 1.25rem); max-height: 90vh; }
+      .modal-shell { max-height: 90vh; padding: 2rem 1.35rem; }
+      .modal-title { max-width: 12ch; margin-bottom: 1.5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .recognition.awards-ready .award-card { opacity: 1; transform: none; animation: none; }
+    }
+
+    @media (max-width: 580px) and (max-height: 720px) {
+      .founder { height: 156vh; }
+      .founder-copy { top: 13%; }
+      .founder-copy h2 { font-size: clamp(2.65rem, 13vw, 3.75rem); }
+      .founder-copy p { font-size: .86rem; line-height: 1.58; }
+      .founder-meta { margin-top: 1.15rem; }
+      .founder-more { margin-top: 1rem; }
+      .portrait-wrap { bottom: -1%; width: min(55vw, 240px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <header class="site-header" id="site-header">
+    <a class="brand" href="#inicio" aria-label="Gamil Föppel Advogados Associados — início">
+      <img src="assets/logo-white.png" alt="Gamil Föppel Advogados Associados">
+    </a>
+    <nav class="nav-links" id="main-nav" aria-label="Navegação principal">
+      <a href="#atuacao">Atuação</a>
+      <a href="#escritorio">O escritório</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#reconhecimento">Reconhecimento</a>
+      <a href="#publicacoes">Publicações</a>
+    </nav>
+    <a class="header-contact" href="#contato">Entre em contato</a>
+    <button class="menu-toggle" id="menu-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio" data-scroll-scene="hero">
+      <div class="hero-sticky">
+        <div class="hero-stage" id="hero-stage">
+          <picture>
+            <source media="(max-width: 580px)" srcset="assets/gf-office-wall-logo-empty-mobile-v2.png" type="image/png">
+            <img class="hero-photo hero-photo-empty" src="assets/gf-office-wall-logo-empty.png" alt="" fetchpriority="high">
+          </picture>
+          <picture>
+            <source media="(max-width: 580px)" srcset="assets/gf-office-wall-logo-gamil-mobile.png" type="image/png">
+            <img class="hero-photo hero-photo-person" id="hero-person" src="assets/gf-office-wall-logo-gamil.png" alt="">
+          </picture>
+        </div>
+        <div class="hero-vignette"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-copy" id="hero-copy">
+          <p class="eyebrow">Gamil Föppel Advogados Associados · Desde 2005</p>
+          <h1>Precisão onde a <em>defesa</em> exige mais.</h1>
+          <p class="hero-lead">Excelência e dedicação em Direito Penal Econômico e Empresarial, com atuação estratégica, sigilo e atenção real ao que está em jogo.</p>
+          <a class="button-primary" href="#atuacao">Conheça nossa atuação <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="hero-scroll"><span>Role para explorar</span><span class="scroll-line"></span></div>
+      </div>
+    </section>
+
+    <section class="section intro" id="escritorio">
+      <div>
+        <p class="section-label">O escritório</p>
+        <h2 class="display-title">Defender interesses também é <em>compreender</em> o que está em risco.</h2>
+      </div>
+      <div class="intro-copy">
+        <p>Desde 2005, o Gamil Föppel Advogados Associados se destaca pela atuação especializada em Direito Penal, com ênfase no Direito Penal Econômico e Empresarial.</p>
+        <p>A filosofia do escritório reúne ética, agilidade, zelo pelos interesses dos clientes, sigilo, busca constante pela excelência e sensibilidade em questões criminais.</p>
+        <button class="text-link text-link-dark intro-more" type="button" data-modal-template="modal-office">Conheça o escritório ↗</button>
+      </div>
+    </section>
+
+    <section class="section services" id="atuacao">
+      <div class="services-head">
+        <div>
+          <h2>Conhecimento técnico para decisões complexas.</h2>
+        </div>
+      </div>
+      <div class="service-grid">
+        <button class="service-card" type="button" data-modal-template="modal-area-penal"><span class="service-number">01</span><h3>Direito Penal</h3><p>Especialização em Direito Penal Econômico e Empresarial.</p></button>
+        <button class="service-card" type="button" data-modal-template="modal-area-sancionador"><span class="service-number">02</span><h3>Administrativo Sancionador</h3><p>Defesa e representação em processos administrativos e regulatórios.</p></button>
+        <button class="service-card" type="button" data-modal-template="modal-area-contencioso"><span class="service-number">03</span><h3>Contencioso Estratégico</h3><p>Gestão proativa de conflitos judiciais e administrativos.</p></button>
+        <button class="service-card" type="button" data-modal-template="modal-area-tributario"><span class="service-number">04</span><h3>Direito Tributário</h3><p>Consultoria preventiva e contencioso administrativo e judicial.</p></button>
+        <button class="service-card" type="button" data-modal-template="modal-area-imobiliario"><span class="service-number">05</span><h3>Direito Imobiliário</h3><p>Consultoria, negociação, regularização e litígios imobiliários.</p></button>
+        <button class="service-card" type="button" data-modal-template="modal-area-eleitoral"><span class="service-number">06</span><h3>Direito Eleitoral</h3><p>Assessoria, consultoria e defesa em litígios eleitorais.</p></button>
+        <button class="service-card" type="button" data-modal-template="modal-area-lgpd"><span class="service-number">07</span><h3>LGPD</h3><p>Adequação, monitoramento, auditoria e gestão de incidentes.</p></button>
+        <button class="service-card" type="button" data-modal-template="modal-area-sucessorio"><span class="service-number">08</span><h3>Planejamento Familiar e Sucessório</h3><p>Proteção patrimonial e organização de decisões familiares.</p></button>
+        <button class="service-card" type="button" data-modal-template="modal-area-desportivo"><span class="service-number">09</span><h3>Direito Desportivo</h3><p>Soluções para atletas, clubes e entidades do esporte.</p></button>
+      </div>
+    </section>
+
+    <section class="founder" data-scroll-scene="founder">
+      <div class="founder-sticky">
+        <img class="founder-office" id="founder-office" src="assets/office.jpg" alt="">
+        <div class="founder-overlay"></div>
+        <p class="founder-badge">Direito Penal Econômico</p>
+        <figure class="portrait-wrap" id="portrait-wrap">
+          <img src="assets/gamil-portrait.png" alt="Gamil Föppel">
+        </figure>
+        <div class="founder-copy" id="founder-copy">
+          <h2>Uma trajetória dedicada à <em>defesa</em>.</h2>
+          <p>Fundador do escritório, Gamil Föppel é advogado, pós-doutor em Direito Penal pela USP, doutor em Direito Penal Econômico pela UFPE e mestre em Direito Penal pela UFBA.</p>
+          <p class="founder-meta">Gamil Föppel · Sócio</p>
+          <button class="text-link founder-more" type="button" data-modal-template="modal-gamil">Currículo completo ↗</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section team-section" id="equipe">
+      <div class="team-intro">
+        <div>
+          <p class="section-label">Profissionais</p>
+          <h2>Uma equipe que combina técnica, formação e <em>presença.</em></h2>
+        </div>
+        <p>Três sócios e uma advogada, com atuação em Direito Penal, Administrativo Sancionador e Tributário.</p>
+      </div>
+      <div class="team-grid">
+        <button class="team-card" type="button" data-modal-template="modal-gamil"><span class="team-role">Sócio</span><h3>Gamil Föppel</h3><p>Direito Penal Econômico e trajetória acadêmica no Brasil.</p></button>
+        <button class="team-card" type="button" data-modal-template="modal-gisela"><span class="team-role">Sócia</span><h3>Gisela Borges</h3><p>Direito Criminal e Administrativo Sancionador.</p></button>
+        <button class="team-card" type="button" data-modal-template="modal-joseane"><span class="team-role">Sócia</span><h3>Joseane Minardi</h3><p>Direito Tributário, empresarial e produção acadêmica.</p></button>
+        <button class="team-card" type="button" data-modal-template="modal-thaisa"><span class="team-role">Advogada</span><h3>Thaisa Brito Luz</h3><p>Direito Tributário e atuação profissional na Bahia.</p></button>
+      </div>
+    </section>
+
+    <section class="section recognition" id="reconhecimento">
+      <div>
+        <p class="section-label">Reconhecimento</p>
+        <h2>Excelência que alcança <em>todo o país.</em></h2>
+        <p>Com sedes em Salvador, Recife, Aracaju, Maceió e Rio de Janeiro, além de uma rede de correspondentes e parceiros, o escritório atua em todo o território nacional.</p>
+        <p>O compromisso com a excelência trouxe reconhecimento em diretórios e anuários jurídicos, especialmente na área do Direito Penal.</p>
+      </div>
+      <div class="award-row" aria-label="Reconhecimentos do escritório">
+        <div class="award-card"><img src="assets/award-analise.png" alt="Análise Advocacia Mais Admirados 2024"></div>
+        <div class="award-card"><img src="assets/award-legal500.jpg" alt="Legal 500 Latin America Leading Firm 2025"></div>
+        <div class="award-card"><img src="assets/award-leaderleague.png" alt="Leader League 2024"></div>
+      </div>
+    </section>
+
+    <section class="section insight-section" id="publicacoes">
+      <div class="insight-head">
+        <div>
+          <p class="eyebrow">Atualizações</p>
+          <h2>Leituras para acompanhar o que move o debate.</h2>
+        </div>
+        <button class="text-link" type="button" data-modal-template="modal-publications-index">Todas as publicações ↗</button>
+      </div>
+      <div class="post-grid">
+        <button class="post-card" type="button" data-modal-template="modal-post-white-collar">
+          <img src="assets/news-white-collar.jpg" alt="">
+          <div class="post-content"><span class="post-date">28/10/2024</span><h3>Reconhecidos na área de White Collar-Crime Investigations</h3></div>
+        </button>
+        <button class="post-card" type="button" data-modal-template="modal-post-maceio">
+          <img src="assets/news-maceio.jpg" alt="">
+          <div class="post-content"><span class="post-date">28/10/2024</span><h3>Gamil Föppel inaugura novo escritório em Maceió</h3></div>
+        </button>
+        <button class="post-card" type="button" data-modal-template="modal-post-deolane">
+          <img src="assets/news-deolane.jpg" alt="">
+          <div class="post-content"><span class="post-date">28/10/2024</span><h3>Por que está tão difícil para Deolane sair da cadeia?</h3></div>
+        </button>
+        <button class="post-card" type="button" data-modal-template="modal-post-investing">
+          <img src="assets/news-investing.jpg" alt="">
+          <div class="post-content"><span class="post-date">28/10/2024</span><h3>A lição que o caso de Gusttavo Lima e a prisão de Deolane deixam para quem investe</h3></div>
+        </button>
+      </div>
+    </section>
+
+    <section class="section contact" id="contato">
+      <div>
+        <p class="eyebrow">Contato</p>
+        <h2>Um caso relevante pede uma conversa <em>à altura.</em></h2>
+        <p class="contact-lead">Entre em contato com o Gamil Föppel Advogados Associados. A equipe fará o direcionamento inicial de acordo com a natureza da demanda.</p>
+        <a class="button-primary" href="tel:+557132710544">Ligar para o escritório <span aria-hidden="true">↗</span></a>
+      </div>
+      <aside class="contact-card">
+        <p>Salvador · sede</p>
+        <strong>Gamil Föppel Advogados Associados</strong>
+        <address>Av. Prof. Magalhães Neto, 1.752,<br>16º Andar · Pituba · Salvador/BA<br>CEP: 41.810-011</address>
+        <a class="phone-link" href="tel:+557132710544">(71) 3271-0544</a>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-top">
+      <a class="footer-logo" href="#inicio"><img src="assets/logo-white.png" alt="Gamil Föppel Advogados Associados"></a>
+      <div class="socials" aria-label="Redes sociais">
+        <a href="https://www.linkedin.com/company/gamil-f%C3%B6ppel-advogados/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+        <a href="https://www.instagram.com/gamilfoppeladv/" target="_blank" rel="noreferrer" aria-label="Instagram">ig</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="office-list" aria-label="Unidades">
+        <span>Salvador</span><span>Rio de Janeiro</span><span>Recife</span><span>Aracaju</span><span>Barreiras</span><span>Maceió</span><span>São Paulo</span>
+      </div>
+      <div>© 2026 Gamil Föppel Advogados Associados. Todos os direitos reservados.</div>
+    </div>
+  </footer>
+
+  <dialog class="detail-modal" id="detail-modal" aria-labelledby="modal-title">
+    <div class="modal-shell">
+      <button class="modal-close" id="modal-close" type="button" aria-label="Fechar detalhes">×</button>
+      <p class="modal-label" id="modal-label"></p>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-content" id="modal-content"></div>
+    </div>
+  </dialog>
+
+  <template id="modal-office">
+    <article class="modal-document" data-modal-label="Sobre nós" data-modal-title="Uma história de defesa e excelência">
+      <blockquote class="modal-quote">“Advogar é combater, é lutar, é apaixonar-se pela paixão alheia… é fazer um pouco de bem silenciosamente; é penetrar na alma dos que se confiam a nós, viver suas ânsias e dores, viver suas alegrias.”<cite>Raúl Chaves · mestre baiano do Direito Penal e Advogado Criminalista Militante</cite></blockquote>
+      <p>Desde 2005, fundado pelo advogado Gamil Föppel El Hireche, o Gamil Föppel Advogados Associados se destaca pela atuação especializada em Direito Penal, com ênfase no Direito Penal Econômico e Empresarial.</p>
+      <p>Nossa filosofia é baseada em ética, agilidade, zelo pelos interesses dos clientes, sigilo, busca incessante pela excelência e sensibilidade no tratamento de questões criminais.</p>
+      <h3>Excelência em Direito Penal Econômico e Empresarial</h3>
+      <p>O escritório conta com uma equipe de advogados altamente qualificados, todos pós-graduados ou pós-graduandos em áreas afins. Selecionados pelo destaque acadêmico nas melhores faculdades, muitos profissionais iniciam sua trajetória conosco desde a graduação, internalizando valores e práticas de excelência.</p>
+      <p>O fundador, professor Gamil Föppel, é mestre em Direito Penal pela UFBA e doutor em Direito Penal Econômico pela UFPE. Autor de diversos livros e artigos, contribui ativamente para o meio acadêmico e jurídico e foi convidado, em 2011, para a comissão de juristas que elaborou o anteprojeto de reforma do Código Penal.</p>
+      <h3>Atuação nacional</h3>
+      <p>Com sedes em Salvador, Recife, Aracaju, Maceió e Rio de Janeiro, além de uma rede de correspondentes e parceiros, o escritório atua em todo o território nacional. O compromisso com a excelência trouxe reconhecimentos em anuários e diretórios jurídicos, especialmente na área do Direito Penal.</p>
+    </article>
+  </template>
+
+  <template id="modal-gamil">
+    <article class="modal-document" data-modal-label="Equipe" data-modal-title="Gamil Föppel">
+      <p><strong>Sócio</strong></p>
+      <p>Advogado. Pós-Doutor em Direito Penal pela Universidade de São Paulo (USP). Doutor em Direito Penal Econômico pela Universidade Federal de Pernambuco (UFPE). Mestre em Direito Penal pela Universidade Federal da Bahia (UFBA).</p>
+      <p>Pelo seu destaque no Direito Penal Econômico, foi convidado pelo Congresso Nacional, em 2011, para compor a Comissão de Juristas responsável pela elaboração do anteprojeto de reforma do Código Penal.</p>
+      <p>Foi também membro da Comissão de Juristas, nomeado pelo Senado Federal, para a revisão da Lei de Execuções Penais. Além disso, foi nomeado pela Câmara dos Deputados para a comissão de juristas de reforma da lei de lavagem de dinheiro.</p>
+      <p>Agraciado com a Medalha do Mérito Legislativo pela Câmara dos Deputados em 2011, é professor associado na Faculdade de Direito da Universidade Federal da Bahia (UFBA), lecionando tanto na graduação quanto na pós-graduação.</p>
+      <p>É professor na Faculdade Baiana de Direito e em diversas outras instituições de ensino no país e em cursos preparatórios para concursos públicos. É autor de diversos livros e artigos.</p>
+    </article>
+  </template>
+
+  <template id="modal-gisela">
+    <article class="modal-document" data-modal-label="Equipe" data-modal-title="Gisela Borges">
+      <p><strong>Sócia</strong></p>
+      <p>Advogada. Doutoranda pelo Instituto de Direito Público de Brasília (IDP). Mestra em Direito Constitucional pelo Instituto de Direito Público de Brasília (IDP). Pós-graduada em Direito Penal Econômico e Europeu pela Universidade de Coimbra.</p>
+      <p>Advogada há quinze anos, com atuação especializada em Direito Criminal e Administrativo Sancionador. Foi eleita pela Revista Análise, por anos consecutivos, como uma das advogadas mais admiradas.</p>
+      <p>É professora de Direito Penal do IDP – Brasília.</p>
+    </article>
+  </template>
+
+  <template id="modal-joseane">
+    <article class="modal-document" data-modal-label="Equipe" data-modal-title="Joseane Minardi">
+      <p><strong>Sócia</strong></p>
+      <p>Advogada. Doutora em Direito Tributário pela PUC/SP. Mestre em Direito Empresarial e Cidadania pelo Centro Universitário de Curitiba. Especialista em Direito Empresarial e em Direito Tributário pela PUC/PR. Bacharel em Direito pela PUC/PR.</p>
+      <p>Professora e autora de várias obras jurídicas.</p>
+    </article>
+  </template>
+
+  <template id="modal-thaisa">
+    <article class="modal-document" data-modal-label="Equipe" data-modal-title="Thaisa Brito Luz">
+      <p><strong>Advogada</strong></p>
+      <p><a href="mailto:thaisa.luz@gamilfoppel.adv.br">thaisa.luz@gamilfoppel.adv.br</a><br>OAB/BA 57.649</p>
+      <p>Advogada. Graduada em Direito pela Universidade Católica do Salvador (2016). Pós-graduanda em Direito Tributário pelo Instituto Brasileiro de Estudos Tributários – IBET.</p>
+    </article>
+  </template>
+
+  <template id="modal-area-penal">
+    <article class="modal-document" data-modal-label="Área de atuação" data-modal-title="Direito Penal">
+      <p><strong>Especialização em Direito Penal Econômico e Empresarial</strong></p>
+      <p>No Gamil Föppel Advogados Associados, a advocacia criminal tem especialização destacada em Direito Penal Econômico e Empresarial.</p>
+      <h3>Foco principal</h3>
+      <ul><li>Crimes contra as ordens econômica e tributária</li><li>Crimes contra as relações de consumo</li><li>Crimes ambientais</li><li>Crimes contra os sistemas previdenciário e financeiro nacional</li><li>Crimes falimentares e lavagem de capitais</li><li>Crimes eleitorais e crimes contra a honra</li><li>Defesa em processos por improbidade administrativa</li></ul>
+      <h3>Atuação em tribunais e investigações</h3>
+      <p>A equipe tem experiência nos Tribunais Superiores, Tribunais de Justiça e Tribunais Regionais Federais, representando clientes em todas as instâncias. Também acompanha investigações que possam resultar em ações penais, incluindo inquéritos policiais, investigações administrativas e Comissões Parlamentares de Inquérito.</p>
+      <h3>Assessoramento empresarial</h3>
+      <p>O escritório presta assessoramento a empresas, do controle interno à assistência de acusação quando necessário, visando a recuperação de bens de interesse dos clientes.</p>
+    </article>
+  </template>
+
+  <template id="modal-area-sancionador">
+    <article class="modal-document" data-modal-label="Área de atuação" data-modal-title="Administrativo Sancionador">
+      <p><strong>Aplicação de sanções administrativas a entidades ou indivíduos que violam normas regulamentares.</strong></p>
+      <p>A atuação em Direito Administrativo Sancionador é dedicada à defesa e à representação de indivíduos e entidades que enfrentam processos administrativos e regulatórios.</p>
+      <p>A área requer profundo conhecimento das normas e regulamentos aplicáveis, além de habilidades em negociação e defesa administrativa, para que os procedimentos sejam conduzidos de maneira justa e transparente.</p>
+      <h3>Serviços oferecidos</h3><ul><li>Acompanhamento de processos administrativos</li><li>Defesa e recursos</li><li>Consultoria preventiva</li><li>Intervenção em procedimentos de fiscalização</li><li>Negociação de acordos e termos de ajustamento de conduta</li></ul>
+    </article>
+  </template>
+
+  <template id="modal-area-contencioso">
+    <article class="modal-document" data-modal-label="Área de atuação" data-modal-title="Direito Contencioso Estratégico">
+      <p><strong>Gestão proativa e eficiente de conflitos judiciais e administrativos.</strong></p>
+      <p>O Direito Contencioso Estratégico se dedica à gestão proativa e eficiente dos conflitos judiciais e administrativos, com uma abordagem que vai além da resposta a processos já existentes.</p>
+      <p>O trabalho envolve antecipação de problemas e implementação de estratégias para minimizar riscos e impactos negativos para os clientes.</p>
+      <h3>Serviços oferecidos</h3><ul><li>Análise detalhada e estratégia personalizada</li><li>Negociação e resolução de conflitos</li><li>Atuação preventiva</li><li>Consultoria e assessoria jurídica</li></ul>
+    </article>
+  </template>
+
+  <template id="modal-area-tributario">
+    <article class="modal-document" data-modal-label="Área de atuação" data-modal-title="Direito Tributário">
+      <p><strong>Consultoria preventiva, contencioso administrativo e judicial.</strong></p>
+      <p>Desde 2019, o Gamil Föppel Advogados Associados ampliou a atuação para incluir o Direito Tributário, em linha com sua especialização em Direito Penal Econômico e Empresarial.</p>
+      <p>A sócia responsável pela área possui atuação nacional e atendimento a multinacionais. A equipe desenvolve uma abordagem personalizada, abrangendo planejamento tributário e sucessório, contencioso administrativo e judicial e restituição de tributos pagos indevidamente.</p>
+      <h3>Serviços oferecidos</h3><ul><li>Consultoria preventiva e planejamento tributário e sucessório</li><li>Contencioso administrativo e judicial</li><li>Restituição de tributos</li><li>Pareceres com análises técnicas e detalhadas</li></ul>
+    </article>
+  </template>
+
+  <template id="modal-area-imobiliario">
+    <article class="modal-document" data-modal-label="Área de atuação" data-modal-title="Direito Imobiliário">
+      <p><strong>Equipe preparada para atender pessoas físicas e jurídicas.</strong></p>
+      <p>O escritório oferece soluções jurídicas especializadas para questões do setor imobiliário. A equipe atende necessidades complexas de indivíduos e empresas em todas as etapas do ciclo imobiliário.</p>
+      <h3>Serviços oferecidos</h3><ul><li>Consultoria e negociação</li><li>Regularização de imóveis</li><li>Litígios imobiliários</li><li>Direito urbanístico</li></ul>
+    </article>
+  </template>
+
+  <template id="modal-area-eleitoral">
+    <article class="modal-document" data-modal-label="Área de atuação" data-modal-title="Direito Eleitoral">
+      <p><strong>Serviços jurídicos para candidatos, partidos políticos e demais agentes do processo eleitoral.</strong></p>
+      <p>O escritório atua com uma equipe especializada e uma abordagem personalizada, voltada à proteção eficiente dos direitos e interesses de cada cliente no âmbito eleitoral.</p>
+      <h3>Serviços oferecidos</h3><ul><li>Consultoria eleitoral</li><li>Assessoria em campanhas eleitorais</li><li>Defesa em litígios eleitorais</li><li>Pareceres jurídicos</li></ul>
+    </article>
+  </template>
+
+  <template id="modal-area-lgpd">
+    <article class="modal-document" data-modal-label="Área de atuação" data-modal-title="LGPD">
+      <p><strong>Serviço completo e personalizado para adequação à Lei Geral de Proteção de Dados.</strong></p>
+      <p>A adequação à LGPD contribui para a privacidade e a segurança dos dados, previne sanções legais e preserva a credibilidade da empresa. O processo envolve conscientização de colaboradores e criação de políticas internas de conformidade.</p>
+      <p>O escritório combina conhecimento jurídico, tecnologia e abordagem prática para oferecer soluções personalizadas em conformidade com a legislação.</p>
+      <h3>Serviços oferecidos</h3><ul><li>Monitoramento e auditoria</li><li>Gestão de incidentes</li><li>Consultoria contínua</li></ul>
+    </article>
+  </template>
+
+  <template id="modal-area-sucessorio">
+    <article class="modal-document" data-modal-label="Área de atuação" data-modal-title="Planejamento Familiar e Sucessório">
+      <p><strong>Segurança e tranquilidade para clientes e suas famílias.</strong></p>
+      <p>O planejamento sucessório busca garantir a transmissão patrimonial de forma eficiente e de acordo com as vontades do cliente. A atuação é personalizada e estratégica, voltada à proteção do futuro e da harmonia familiar.</p>
+      <h3>Serviços oferecidos</h3><ul><li>Elaboração de testamentos e pactos sucessórios</li><li>Planejamento tributário</li><li>Administração de heranças</li><li>Planejamento de tutelas e curatelas</li><li>Direito de família</li><li>Mediação familiar</li></ul>
+    </article>
+  </template>
+
+  <template id="modal-area-desportivo">
+    <article class="modal-document" data-modal-label="Área de atuação" data-modal-title="Direito Desportivo">
+      <p><strong>Expertise para as necessidades de atletas, clubes e entidades.</strong></p>
+      <p>O escritório oferece soluções jurídicas eficazes e personalizadas, com segurança e excelência em todas as fases da prática esportiva. O conhecimento jurídico é somado à experiência prática para atender às demandas do cenário nacional e internacional.</p>
+      <h3>Serviços oferecidos</h3><ul><li>Representação de atletas e agentes</li><li>Consultoria para clubes e federações</li><li>Gestão de direitos de propriedade intelectual</li><li>Resolução de conflitos</li></ul>
+    </article>
+  </template>
+
+  <template id="modal-publications-index">
+    <article class="modal-document" data-modal-label="Atualizações" data-modal-title="Publicações">
+      <p>Conteúdos publicados pelo escritório em 28 de outubro de 2024.</p>
+      <div class="modal-index">
+        <button type="button" data-modal-template="modal-post-white-collar">Reconhecidos na área de White Collar-Crime Investigations <span>abrir ↗</span></button>
+        <button type="button" data-modal-template="modal-post-maceio">Gamil Föppel inaugura novo escritório em Maceió <span>abrir ↗</span></button>
+        <button type="button" data-modal-template="modal-post-deolane">Por que está tão difícil para Deolane sair da cadeia? <span>abrir ↗</span></button>
+        <button type="button" data-modal-template="modal-post-investing">A lição que o caso de Gusttavo Lima e a prisão de Deolane deixam para quem investe <span>abrir ↗</span></button>
+      </div>
+    </article>
+  </template>
+
+  <template id="modal-post-white-collar">
+    <article class="modal-document" data-modal-label="Redes sociais · 28 de outubro de 2024" data-modal-title="Reconhecidos na área de White Collar-Crime Investigations">
+      <p>Fomos reconhecidos pelo nosso trabalho na categoria White Collar-Crime and Investigations. Agradecemos a todos os nossos profissionais que tornaram esse destaque possível!</p>
+    </article>
+  </template>
+
+  <template id="modal-post-maceio">
+    <article class="modal-document" data-modal-label="Redes sociais · 28 de outubro de 2024" data-modal-title="Gamil Föppel inaugura novo escritório em Maceió">
+      <p>Temos uma nova unidade em Maceió. Juntos, o escritório de advocacia Gamil Föppel e o advogado Ivan Luiz Rufino da Silva oferecem aos seus constituintes um serviço personalizado e de alta qualidade, com soluções jurídicas sob medida para cada caso específico.</p>
+    </article>
+  </template>
+
+  <template id="modal-post-deolane">
+    <article class="modal-document" data-modal-label="Redes sociais · 28 de outubro de 2024" data-modal-title="Por que está tão difícil para Deolane sair da cadeia?">
+      <p>O caso de Deolane Bezerra continua gerando debates. Em entrevista ao Portal LeoDias, o advogado e especialista em Direito Penal, Gamil Föppel, explica que sua prisão domiciliar foi revogada devido ao descumprimento de medidas cautelares, como a proibição de postagens em redes sociais.</p>
+      <p>O advogado destaca que, embora a prisão preventiva possa ser substituída pela domiciliar por conta da maternidade, isso depende do cumprimento das condições estabelecidas pela Justiça. O Dr. Gamil Föppel menciona que o STF considera a presença de filhos menores em decisões sobre liberdade, mas as impugnações devem ser feitas por meios corretos, não em público.</p>
+      <p>Atualmente, Deolane precisa esgotar suas possibilidades no Tribunal de Justiça de Pernambuco antes que o Superior Tribunal de Justiça possa analisar seu caso. O especialista explica que a Justiça funciona como uma escada, e a influenciadora está apenas nos primeiros degraus desse processo.</p>
+    </article>
+  </template>
+
+  <template id="modal-post-investing">
+    <article class="modal-document" data-modal-label="Redes sociais · 28 de outubro de 2024" data-modal-title="A lição que o caso de Gusttavo Lima e a prisão de Deolane deixam para quem investe">
+      <p>Recentemente, os pedidos de prisão de Deolane Bezerra e Gusttavo Lima chocaram seus fãs e levantaram reflexões sobre o mundo das apostas. Em entrevista ao E-Investidor, o Dr. Gamil Föppel explica como a lavagem de dinheiro é uma realidade no cenário das bets e alerta que a verdadeira construção de patrimônio exige planejamento e disciplina.</p>
+      <p>Se você aposta, lembre-se: jogos são entretenimento, não uma forma garantida de investimento. Fique atento e faça escolhas conscientes.</p>
+    </article>
+  </template>
+
+  <script>
+    (() => {
+      const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+      const header = document.getElementById('site-header');
+      const menu = document.getElementById('menu-toggle');
+      const hero = document.querySelector('[data-scroll-scene="hero"]');
+      const heroStage = document.getElementById('hero-stage');
+      const heroCopy = document.getElementById('hero-copy');
+      const heroEmpty = document.querySelector('.hero-photo-empty');
+      const heroPerson = document.getElementById('hero-person');
+      const heroVignette = document.querySelector('.hero-vignette');
+      const heroGrid = document.querySelector('.hero-grid');
+      const heroScroll = document.querySelector('.hero-scroll');
+      const founder = document.querySelector('[data-scroll-scene="founder"]');
+      const founderOffice = document.getElementById('founder-office');
+      const portrait = document.getElementById('portrait-wrap');
+      const founderCopy = document.getElementById('founder-copy');
+      const recognition = document.querySelector('.recognition');
+      const detailDialog = document.getElementById('detail-modal');
+      const modalLabel = document.getElementById('modal-label');
+      const modalTitle = document.getElementById('modal-title');
+      const modalContent = document.getElementById('modal-content');
+      const modalClose = document.getElementById('modal-close');
+      let lastModalTrigger = null;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let scheduled = false;
+
+      if (recognition && !reduced && 'IntersectionObserver' in window) {
+        recognition.classList.add('awards-ready');
+        const awardsObserver = new IntersectionObserver(([entry]) => {
+          if (!entry.isIntersecting) return;
+          recognition.classList.add('awards-visible');
+          awardsObserver.unobserve(recognition);
+        }, { threshold: .35 });
+        awardsObserver.observe(recognition);
+      }
+
+      const openDetail = (trigger) => {
+        const template = document.getElementById(trigger.dataset.modalTemplate);
+        const source = template?.content.querySelector('.modal-document');
+        if (!source) return;
+        if (!detailDialog.open) lastModalTrigger = trigger;
+        modalLabel.textContent = source.dataset.modalLabel || '';
+        modalTitle.textContent = source.dataset.modalTitle || '';
+        modalContent.replaceChildren(source.cloneNode(true));
+        if (!detailDialog.open) detailDialog.showModal();
+        document.body.classList.add('is-modal-open');
+        modalClose.focus();
+      };
+
+      const closeDetail = () => detailDialog.close();
+
+      const progress = (section) => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.max(1, section.offsetHeight - window.innerHeight);
+        return clamp(-rect.top / distance);
+      };
+
+      const update = () => {
+        scheduled = false;
+        header.classList.toggle('is-solid', window.scrollY > 24);
+        if (reduced) {
+          heroStage.style.transform = 'scale(1)';
+          heroEmpty.style.transform = 'scale(1)';
+          heroPerson.style.transform = 'scale(1)';
+          heroPerson.style.opacity = '1';
+          heroVignette.style.opacity = '.86';
+          heroGrid.style.opacity = '.16';
+          heroCopy.style.opacity = '1';
+          heroCopy.style.transform = window.innerWidth <= 580 ? 'translate3d(0, 0, 0)' : 'translateY(-42%)';
+          heroScroll.style.opacity = '1';
+          heroScroll.style.transform = 'translateY(0)';
+          header.classList.add('is-revealed');
+          return;
+        }
+
+        const heroProgress = progress(hero);
+        const isMobile = window.innerWidth <= 580;
+        const ease = value => value * value * (3 - 2 * value);
+        const sceneEase = ease(clamp(heroProgress / .38));
+        const personEase = ease(clamp((heroProgress - .27) / .31));
+        const gradientProgress = ease(clamp((heroProgress - .66) / .15));
+        const copyProgress = clamp((heroProgress - .84) / .13);
+        const copyEase = copyProgress * copyProgress * (3 - 2 * copyProgress);
+        const headerEase = ease(clamp((heroProgress - .88) / .1));
+        const scrollEase = ease(clamp((heroProgress - .94) / .06));
+        const desktopScale = 1.55 - sceneEase * .55;
+        const desktopX = (1 - sceneEase) * 9.3;
+        const desktopY = (1 - sceneEase) * 25;
+        heroStage.style.transform = isMobile
+          ? 'scale(1)'
+          : `translate3d(${desktopX}vw, ${desktopY}vh, 0) scale(${desktopScale})`;
+        const mobileScale = 1.75 - sceneEase * .75;
+        const mobileX = (1 - sceneEase) * 24;
+        const mobileTransform = `translate3d(${mobileX}px, 0, 0) scale(${mobileScale})`;
+        heroEmpty.style.transform = isMobile ? mobileTransform : 'scale(1)';
+        heroPerson.style.transform = isMobile ? mobileTransform : 'scale(1)';
+        heroPerson.style.opacity = String(personEase);
+        heroCopy.style.opacity = String(copyEase);
+        heroCopy.style.transform = window.innerWidth <= 580
+          ? `translate3d(0, ${(1 - copyEase) * 36}px, 0)`
+          : `translateY(calc(-42% + ${(1 - copyEase) * 52}px))`;
+        heroVignette.style.opacity = String(gradientProgress);
+        heroGrid.style.opacity = String(gradientProgress * .16);
+        heroScroll.style.opacity = String(scrollEase);
+        heroScroll.style.transform = `translateY(${(1 - scrollEase) * 10}px)`;
+        header.style.opacity = String(headerEase);
+        header.style.transform = `translateY(${(1 - headerEase) * -12}px)`;
+        header.style.pointerEvents = headerEase > .98 ? 'auto' : 'none';
+        header.classList.toggle('is-revealed', headerEase > .98);
+
+        const founderProgress = progress(founder);
+        const founderText = clamp((founderProgress - .28) / .35);
+        founderOffice.style.transform = `scale(${1.06 + founderProgress * .14}) translate3d(${founderProgress * -3}%, 0, 0)`;
+        const portraitScale = window.innerWidth <= 920
+          ? 1.16 - founderProgress * .32
+          : 1.16 - founderProgress * .16;
+        const portraitY = founderProgress * (window.innerWidth <= 920 ? 9 : 14);
+        if (window.innerWidth <= 920) {
+          portrait.style.transform = `translate3d(-50%, ${portraitY}%, 0) scale(${portraitScale})`;
+        } else {
+          portrait.style.transform = `translate3d(${founderProgress * 22}%, ${portraitY}%, 0) scale(${portraitScale})`;
+        }
+        founderCopy.style.opacity = String(founderText);
+        founderCopy.style.transform = window.innerWidth <= 920
+          ? `translate3d(0, ${(1 - founderText) * 28}px, 0)`
+          : `translate3d(0, calc(-44% + ${(1 - founderText) * 46}px), 0)`;
+      };
+
+      const requestUpdate = () => {
+        if (!scheduled) {
+          scheduled = true;
+          window.requestAnimationFrame(update);
+        }
+      };
+
+      menu.addEventListener('click', () => {
+        const open = header.classList.toggle('is-menu-open');
+        menu.setAttribute('aria-expanded', String(open));
+        menu.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      });
+      document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => {
+        header.classList.remove('is-menu-open');
+        menu.setAttribute('aria-expanded', 'false');
+      }));
+      document.addEventListener('click', event => {
+        const trigger = event.target.closest('[data-modal-template]');
+        if (!trigger) return;
+        event.preventDefault();
+        openDetail(trigger);
+      });
+      modalClose.addEventListener('click', closeDetail);
+      detailDialog.addEventListener('click', event => {
+        if (event.target === detailDialog) closeDetail();
+      });
+      detailDialog.addEventListener('close', () => {
+        document.body.classList.remove('is-modal-open');
+        modalContent.replaceChildren();
+        if (lastModalTrigger?.isConnected) lastModalTrigger.focus();
+        lastModalTrigger = null;
+      });
+      window.addEventListener('scroll', requestUpdate, { passive: true });
+      window.addEventListener('resize', requestUpdate, { passive: true });
+      window.addEventListener('load', requestUpdate, { once: true });
+      requestUpdate();
+    })();
+  </script>
+</body>
+</html>
