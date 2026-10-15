@@ -323,12 +323,12 @@
       <div class="hero-sticky">
         <div class="hero-stage" id="hero-stage">
           <picture>
-            <source media="(max-width: 580px)" srcset="assets/gf-office-wall-logo-empty-mobile-v2.png" type="image/png">
-            <img class="hero-photo hero-photo-empty" src="assets/gf-office-wall-logo-empty.png" alt="" fetchpriority="high">
+            <source media="(max-width: 580px)" srcset="assets/gf-office-wall-logo-empty-mobile-v2.webp" type="image/webp">
+            <img class="hero-photo hero-photo-empty" src="assets/gf-office-wall-logo-empty.webp" alt="" fetchpriority="high">
           </picture>
           <picture>
-            <source media="(max-width: 580px)" srcset="assets/gf-office-wall-logo-gamil-mobile.png" type="image/png">
-            <img class="hero-photo hero-photo-person" id="hero-person" src="assets/gf-office-wall-logo-gamil.png" alt="">
+            <source media="(max-width: 580px)" srcset="assets/gf-office-wall-logo-gamil-mobile.webp" type="image/webp">
+            <img class="hero-photo hero-photo-person" id="hero-person" src="assets/gf-office-wall-logo-gamil.webp" alt="">
           </picture>
         </div>
         <div class="hero-vignette"></div>
@@ -739,7 +739,9 @@
         const isMobile = window.innerWidth <= 580;
         const ease = value => value * value * (3 - 2 * value);
         const sceneEase = ease(clamp(heroProgress / .38));
-        const personEase = ease(clamp((heroProgress - .27) / .31));
+        // On phones, bring Gamil in slightly before the desktop timeline while
+        // keeping the logo zoom and the copy sequence unchanged.
+        const personEase = ease(clamp((heroProgress - (isMobile ? .21 : .27)) / .31));
         const gradientProgress = ease(clamp((heroProgress - .66) / .15));
         const copyProgress = clamp((heroProgress - .84) / .13);
         const copyEase = copyProgress * copyProgress * (3 - 2 * copyProgress);
